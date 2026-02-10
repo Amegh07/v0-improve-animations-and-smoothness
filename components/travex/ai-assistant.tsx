@@ -1,8 +1,11 @@
 "use client"
 
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles, Zap } from "lucide-react"
 import { useRef, useState } from "react"
+import { useInView } from "framer-motion"
+
+const ease: [number, number, number, number] = [0.22, 0.61, 0.36, 1]
 
 export function AIAssistant() {
   const ref = useRef<HTMLElement>(null)
@@ -10,10 +13,7 @@ export function AIAssistant() {
   const [appliedSuggestions, setAppliedSuggestions] = useState<Set<number>>(new Set())
   const [dismissed, setDismissed] = useState(false)
 
-  const suggestions = [
-    "Leave 30 mins earlier",
-    "Book airport taxi",
-  ]
+  const suggestions = ["Leave 30 mins earlier", "Book airport taxi"]
 
   const handleApply = (index: number) => {
     setAppliedSuggestions((prev) => new Set(prev).add(index))
@@ -27,17 +27,17 @@ export function AIAssistant() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           exit={{ opacity: 0, y: -20, height: 0, marginBottom: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-white/[0.03] backdrop-blur-xl rounded-3xl p-6 border border-amber-500/10 relative overflow-hidden"
+          transition={{ duration: 0.52, ease }}
+          className="glass-card rounded-3xl p-6 border-amber-500/10 relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/[0.06] rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/[0.04] rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex items-start gap-4 relative z-10">
             <motion.div
               animate={{
                 boxShadow: [
                   "0 0 0 0 rgba(245,158,11,0)",
-                  "0 0 20px 5px rgba(245,158,11,0.15)",
+                  "0 0 20px 5px rgba(245,158,11,0.12)",
                   "0 0 0 0 rgba(245,158,11,0)",
                 ],
               }}
@@ -50,7 +50,7 @@ export function AIAssistant() {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="font-bold text-foreground">AI Travel Assistant</h3>
-                <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs">New</span>
+                <span className="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 text-xs">Insight</span>
               </div>
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 I noticed heavy traffic to COK airport on Feb 14. Would you like me to suggest an earlier departure time or alternative transport?
@@ -63,10 +63,10 @@ export function AIAssistant() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => handleApply(i)}
-                    className={`px-4 py-2 rounded-full text-sm border transition-all duration-300 ${
+                    className={`px-4 py-2 rounded-full text-sm border transition-all duration-200 ${
                       appliedSuggestions.has(i)
                         ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-                        : "bg-white/5 hover:bg-white/10 text-foreground border-white/10 hover:border-amber-500/30"
+                        : "bg-white/[0.04] hover:bg-white/[0.08] text-foreground border-white/[0.08] hover:border-amber-500/30"
                     }`}
                   >
                     {appliedSuggestions.has(i) ? "Applied" : suggestion}
@@ -76,7 +76,7 @@ export function AIAssistant() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setDismissed(true)}
-                  className="px-4 py-2 rounded-full bg-white/5 text-sm text-muted-foreground border border-white/10 hover:bg-white/10 transition-all duration-300"
+                  className="px-4 py-2 rounded-full bg-white/[0.04] text-sm text-muted-foreground border border-white/[0.08] hover:bg-white/[0.08] transition-all duration-200"
                 >
                   Dismiss
                 </motion.button>

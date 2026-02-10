@@ -4,26 +4,33 @@
 
 @layer base {
   :root {
-    --background: 222 47% 3%;
-    --foreground: 210 40% 92%;
-    --card: 222 30% 6%;
-    --card-foreground: 210 40% 92%;
-    --popover: 222 30% 6%;
-    --popover-foreground: 210 40% 92%;
-    --primary: 217 91% 60%;
+    --background: 220 30% 5%;
+    --foreground: 210 25% 90%;
+    --card: 220 25% 7%;
+    --card-foreground: 210 25% 90%;
+    --popover: 220 25% 7%;
+    --popover-foreground: 210 25% 90%;
+    --primary: 213 80% 62%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 222 20% 12%;
-    --secondary-foreground: 210 40% 80%;
-    --muted: 222 20% 12%;
-    --muted-foreground: 215 20% 55%;
-    --accent: 217 91% 60%;
+    --secondary: 220 18% 11%;
+    --secondary-foreground: 210 25% 78%;
+    --muted: 220 18% 11%;
+    --muted-foreground: 215 16% 50%;
+    --accent: 213 80% 62%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 20% 14%;
-    --input: 215 20% 14%;
-    --ring: 217 91% 60%;
-    --radius: 0.75rem;
+    --border: 215 16% 13%;
+    --input: 215 16% 13%;
+    --ring: 213 80% 62%;
+    --radius: 1rem;
+
+    /* Custom winter tokens */
+    --glass-bg: 220 25% 8%;
+    --glass-border: 215 16% 16%;
+    --frost: 213 60% 70%;
+    --frost-muted: 213 40% 55%;
+    --winter-shadow: 0 8px 24px rgba(12, 20, 30, 0.3);
   }
 }
 
@@ -47,20 +54,38 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  .glass-card {
+    @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] shadow-lg;
+    box-shadow: var(--winter-shadow);
+  }
+  .glass-card-hover {
+    @apply hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300;
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: hsl(213 80% 62% / 0.3);
+  color: white;
 }
