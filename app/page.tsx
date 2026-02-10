@@ -13,7 +13,7 @@ import { CursorGlow } from "@/components/travex/cursor-glow"
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       <AmbientBackground />
       <CursorGlow />
       <Navbar />
